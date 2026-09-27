@@ -1,0 +1,147 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>maschine-CombatLog</AssemblyName>
+    <RootNamespace>CombatLog</RootNamespace>
+    <Authors>maschine</Authors>
+    <Company>https://github.com/maschine34675/CombatLog</Company>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>..\..\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\BepInEx\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="spt-reflection">
+      <HintPath>..\..\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Anvil-WebOverlay">
+      <HintPath>..\..\BepInEx\plugins\Anvil-WebOverlay\Anvil-WebOverlay.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Comfort">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Comfort.Unity">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\Comfort.Unity.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ItemComponent.Types">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\ItemComponent.Types.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- The 4.1 UI base classes derive from Odin's SerializedMonoBehaviour, so
+         anything touching a game screen type needs this even without using it. -->
+    <Reference Include="Sirenix.Serialization">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\Sirenix.Serialization.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- The menu bar button clones a real tab, so it touches the whole UI
+         stack the tab is built from: Image and CanvasGroup, the TMP caption,
+         and the Animator that drives the clone's visual state. -->
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\EscapeFromTarkov_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The page ships inside the DLL, so nothing has to be deployed next to
+         it. LogicalName must match the GetManifestResourceStream argument. -->
+    <EmbeddedResource Include="web\combatlog.html">
+      <LogicalName>CombatLog.combatlog.html</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\mannequin.js">
+      <LogicalName>CombatLog.mannequin.js</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\records.js">
+      <LogicalName>CombatLog.records.js</LogicalName>
+    </EmbeddedResource>
+    <!-- Regenerate with tools/build-icon.py, which documents why the glyph is
+         a hexagon and why its gold is baked in. -->
+    <EmbeddedResource Include="assets\task-bar-icon.png">
+      <LogicalName>CombatLog.task-bar-icon.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SptRoot Condition="'$(SptRoot)' == ''">$(MSBuildThisFileDirectory)..\..\</SptRoot>
+  </PropertyGroup>
+
+  <Target Name="DeployToSpt" AfterTargets="Build">
+    <Error Condition="!Exists('$(SptRoot)EscapeFromTarkov.exe')"
+           Text="SptRoot '$(SptRoot)' is not an SPT install (EscapeFromTarkov.exe missing). Pass -p:SptRoot=D:\SPT41\ with a trailing backslash." />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SptRoot)BepInEx\plugins" />
+    <Copy SourceFiles="@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).pdb')"
+          DestinationFolder="$(SptRoot)BepInEx\plugins"
+          Condition="'$(Configuration)' == 'Debug'" />
+    <!-- A stale folder copy would make BepInEx load the same GUID twice. -->
+    <RemoveDir Directories="$(SptRoot)BepInEx\plugins\$(AssemblyName)"
+               Condition="Exists('$(SptRoot)BepInEx\plugins\$(AssemblyName)')" />
+  </Target>
+
+</Project>
